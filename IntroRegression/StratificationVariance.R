@@ -136,6 +136,7 @@ female_heights <- GaltonFamilies %>%
   ungroup() %>%     
   select( mother, childHeight) %>%     
   rename(daughter = childHeight)
+female_heights
 
 m_m <- mean(female_heights$mother)
 sd_m <-sd(female_heights$mother)
@@ -154,8 +155,20 @@ Conditional_avgD <- female_heights %>%
   summarize(avg = mean(daughter)) %>% 
   pull(avg)
   
-
 Cond_exp <- Intcp + slope * 60
   
-  
-  
+fit_mother <- lm(mother ~ daughter, female_heights)
+summary(fit_mother)  
+
+
+model <- lm(mother ~ daughter, data = female_heights)
+predictions <- predict(model, interval = c("confidence"), level = 0.95)
+data <- as_tibble(predictions) %>% bind_cols(daughters = female_heights$daughter)
+
+
+
+
+
+
+
+

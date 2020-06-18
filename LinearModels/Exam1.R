@@ -1,7 +1,8 @@
 ### Exercices
 # Q uestion 4: You want to know whether teams with more at-bats per 
 # game have more runs per game.
-
+library(tidyverse)
+library(Lahman)
 
 Teams %>% filter(yearID %in% 1961:2001 ) %>%
   mutate(AB_per_game = AB/G, R_per_game = R/G) %>%
@@ -26,6 +27,7 @@ Teams %>% filter(yearID %in% 1961:2001 ) %>%
   ggplot(aes(X2b_g, X3b_g)) +
   geom_point(alpha = .05)
 # Question 9
+
 Teams %>% filter((yearID %in% 1961:2001)) %>% 
   mutate(runs_g = R / G, Ab_g = AB / G ) %>% 
   summarise(cor(runs_g, Ab_g))
