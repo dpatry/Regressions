@@ -58,7 +58,7 @@ galton_heights %>% ggplot(aes(father, son)) +
 model <- lm(son ~ father, data = galton_heights)
 predictions <- predict(model, interval = c("confidence"), level = 0.95)
 data <- as_tibble(predictions) %>% bind_cols(father = galton_heights$father)
-data
+
 ggplot(data, aes(x = father, y = fit)) +
   geom_line(color = "blue", size = 1) + 
   geom_ribbon(aes(ymin=lwr, ymax=upr), alpha=0.2) + 
@@ -67,8 +67,8 @@ ggplot(data, aes(x = father, y = fit)) +
 
 model <- lm(son ~ father, data = galton_heights)
 predictions <- predict(model)
-data <- as_tibble(predictions) %>% bind_cols(father = galton_heights$father)
-
+data <- as_tibble(predictions) %>% 
+bind_cols(father = galton_heights$father) 
 ggplot(data, aes(x = father, y = fit)) +
   geom_line(color = "blue", size = 1) + 
   geom_point(data = galton_heights, aes(x = father, y = son))
